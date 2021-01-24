@@ -19,15 +19,19 @@ logging.basicConfig(level=logging.INFO)
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
     await bot.send_message(message.chat.id, "Записуйте кожну розмову з Вашими клієнтами, контролюйте роботу операторів та аналізуйте всю отриману інформацію з метою підвищення якості обслуговування!\n Функція розподілу прав доступу допоможе забезпечити високу безпеку даних.\n")
-    await bot.send_video(message.chat.id, video_id)
+    await bot.send_video(message.chat.id, video_id, reply_markup=kb.kb_helpme)
 
-    await bot.send_message(message.chat.id, text="Дізнайтесь більше про функціонал або натиснить /help", reply_markup=kb.kb_functional)
-    
+
+@dp.callback_query_handler(lambda c: c.data == 'helpeme')
+async def process_callback_functional(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id, 'Оберіть що Вас цікавить', reply_markup=kb.kb_help)
+
 
 @dp.callback_query_handler(lambda c: c.data == 'functional')
 async def process_callback_functional(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
-    await bot.send_message(callback_query.from_user.id, 'Оберіть функціонал або натиснить /help', reply_markup=kb.kb_all_abilities)
+    await bot.send_message(callback_query.from_user.id, 'Найголовніше про функціонал SMIDDLE RECORDING', reply_markup=kb.kb_all_abilities)
 
 
 @dp.callback_query_handler(lambda c: c.data == 'video')
@@ -72,7 +76,9 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
     if code == 'speech':
         code_answer = "Розпізнавання мовлення\nАвтоматизація за допомогою розпізнавання мовлення та пошук по розпізнаних словах дозволяють витрачати менше сил на ручну роботу й більше на аналіз. Унікальна україно-російська мовна модель дозволяє розпізнати і перекласти в текст промову, в якій використовується одночасно дві мови."
 
-    await bot.send_message(callback_query.from_user.id, code_answer)
+    await bot.send_message(callback_query.from_user.id, code_answer, reply_markup=kb.kb_functional)
+    await bot.send_message(callback_query.from_user.id, "Повернутись в головне меню", reply_markup=kb.kb_helpme)
+
 
 
 @dp.message_handler(commands=['help'])
@@ -82,14 +88,8 @@ async def process_help_command(message: types.Message):
 
 @dp.message_handler()
 async def echo_message(message: types.Message):
-    await bot.send_message(message.chat.id, "Записуйте кожну розмову з Вашими клієнтами, контролюйте роботу операторів та аналізуйте всю отриману інформацію з метою підвищення якості обслуговування!\n Функція розподілу прав доступу допоможе забезпечити високу безпеку даних.")
-    await bot.send_message(message.from_user.id, 'Більше інформації /help')
+    await bot.send_message(message.chat.id, "Записуйте кожну розмову з Вашими клієнтами, контролюйте роботу операторів та аналізуйте всю отриману інформацію з метою підвищення якості обслуговування!\n Функція розподілу прав доступу допоможе забезпечити високу безпеку даних.", reply_markup=kb.kb_helpme)
 
-
-# @dp.message_handler(content_types=["document", "video", "audio"])
-# async def handle_files(message):
-#     print(message.video.file_id)
-#     await bot.send_message(message.chat.id, "С новым годом!⛄")
 
 
 if __name__ == '__main__':
