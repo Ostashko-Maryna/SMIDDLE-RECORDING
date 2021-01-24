@@ -5,6 +5,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 btn_functional = InlineKeyboardButton('Функціонал SMIDDLE RECORDING', callback_data='functional')
 kb_functional = InlineKeyboardMarkup().add(btn_functional)
 
+btn_helpme = InlineKeyboardButton('Дізнатись більше про SMIDDLE RECORDING', callback_data='helpeme')
+kb_helpme = InlineKeyboardMarkup().add(btn_helpme)
 
 kb_all_abilities = InlineKeyboardMarkup()
 kb_all_abilities.add(InlineKeyboardButton('Розпізнавання мовлення', callback_data='func_speech'))
@@ -17,12 +19,9 @@ kb_all_abilities.add(InlineKeyboardButton('Запис єкрану операт�
 kb_all_abilities.add(InlineKeyboardButton('API для інтеграції з сторонніми системами', callback_data='func_API'))
 
 
-
 kb_help = InlineKeyboardMarkup()
-kb_help.add(InlineKeyboardButton('Перейти на сайт SMIDDLE RECORDING', url='https://smiddle.com/uk/solutions/rishennia-dlia-kontakt-tsentru/smiddle-recording'))
+kb_help.add(InlineKeyboardButton('Перейти на сторінку SMIDDLE RECORDING', url='https://smiddle.com/uk/solutions/rishennia-dlia-kontakt-tsentru/smiddle-recording'))
 kb_help.add(InlineKeyboardButton('Переглянути відео про SMIDDLE RECORDING', callback_data='video'))
 kb_help.add(btn_functional)
 kb_help.add(InlineKeyboardButton('Наші контакти', callback_data='contact'))
 kb_help.add(InlineKeyboardButton('Замовити демо', callback_data='demo'))
-# kb_help.add(InlineKeyboardButton("Зв'язатися з розробником",  switch_inline_query_current_chat='@Maro_Sulima'))
-
